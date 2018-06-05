@@ -6,13 +6,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import lombok.Singular;
 
 /**
  * Représente une classe java.<br>
@@ -32,31 +30,21 @@ import lombok.Singular;
  * @author michocko
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = { "packageName", "name" })
 public class JavaClass {
     private static final String INDENTATION = "    ";
 
+    private final Set<ModifierEnum> modifiers = new LinkedHashSet<>();
+    private final Set<String> implementedInterfaces = new LinkedHashSet<>();
+    private final Set<String> imports = new LinkedHashSet<>();
+    private final Set<JavaAnnotation> annotations = new LinkedHashSet<>();
+    private final Set<JavaField> fields = new LinkedHashSet<>();
+
     private String packageName;
     private String name;
     private String extendedClass;
-
-    @Singular
-    final Set<ModifierEnum> modifiers = new LinkedHashSet<>();
-
-    @Singular
-    final Set<String> implementedInterfaces = new LinkedHashSet<>();
-
-    @Singular
-    final Set<String> imports = new LinkedHashSet<>();
-
-    @Singular
-    final Set<JavaAnnotation> annotations = new LinkedHashSet<>();
-
-    @Singular
-    final Set<JavaField> fields = new LinkedHashSet<>();
 
     /**
      * Ajoute le modifier "public" et ajoute les annotations &#64;Data, &#64;NoArgsConstructor et &#64;AllArgsConstructor de lombok, et leurs

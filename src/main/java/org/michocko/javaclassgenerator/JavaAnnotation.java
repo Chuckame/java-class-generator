@@ -5,11 +5,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Singular;
 import lombok.val;
 
 /**
@@ -24,14 +22,13 @@ import lombok.val;
  * @author michocko
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class JavaAnnotation {
-    private String name;
 
-    @Singular
     private final Map<String, String> values = new LinkedHashMap<>();
+
+    private String name;
 
     /**
      * Ajoute une valeur à l'annotation.<br>
