@@ -8,7 +8,6 @@ import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
@@ -102,16 +101,16 @@ public class JavaClass {
 
         if (this.packageName != null) {
             writer.println(String.format("package %s;", this.packageName));
+            writer.println();
         }
         if (!this.imports.isEmpty()) {
-            writer.println();
             for (String _import : this.imports) {
                 writer.print("import ");
                 writer.print(_import);
                 writer.println(';');
             }
+            writer.println();
         }
-        writer.println();
         this.annotations.forEach(writer::println);
         if (!this.modifiers.isEmpty()) {
             for (ModifierEnum modifier : this.modifiers) {
@@ -149,7 +148,6 @@ public class JavaClass {
         ABSTRACT("abstract"),
         FINAL("final");
 
-        @Getter
         private final String modifier;
 
         @Override
