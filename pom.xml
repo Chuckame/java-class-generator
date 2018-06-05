@@ -19,7 +19,6 @@
     <nexus.repositories>http://nexus.dev.gaio.local:8081/nexus/content/repositories</nexus.repositories>
     <project.release.date>${maven.build.timestamp}</project.release.date>
     <maven.build.timestamp.format>dd/MM/yyy</maven.build.timestamp.format>
-    <git.clonelink>git@gitlab.dev.gaio.local:michocko/java-class-generator.git</git.clonelink>
   </properties>
 
   <scm>
