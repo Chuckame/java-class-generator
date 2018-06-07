@@ -1,4 +1,4 @@
-image: registry.gitlab.dev.gaio.local/gaio/ci-images/maven:3.3.9-jdk-8-gaio
+image: maven:3-jdk-8
 
 before_script:
   # Télécharge le settings.xml pour récupérer les dépendances sur notre nexus.
