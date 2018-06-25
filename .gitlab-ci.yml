@@ -69,21 +69,29 @@ tests:
       - target/
 
 # Sonarisation
-sonar:
+sonar-long-lived:
   stage: report
   dependencies:
     - tests
   script:
-    - 'mvn $MAVEN_CLI_OPTS sonar:sonar 
+    - 'mvn $MAVEN_CLI_OPTS sonar:sonar
+            -Dsonar.branch.name=$CI_COMMIT_REF_NAME'
+  only:
+    - develop
+    - master
+    
+sonar-short-lived:
+  stage: report
+  dependencies:
+    - tests
+  script:
+    - 'mvn $MAVEN_CLI_OPTS sonar:sonar
             -Dsonar.branch.name=$CI_COMMIT_REF_NAME
-            -Dsonar.branch=$CI_COMMIT_REF_NAME
             -Dsonar.branch.target=develop'
-    # Pour sonar 7:
-    # 'sonar.branch.name' et 'sonar.branch.target' permettent de connaitre l'évolution de la qualité du code sur les merge request.
-    # - 'mvn $MAVEN_CLI_OPTS sonar:sonar 
-    #       -Dsonar.gitlab.commit_sha=$CI_COMMIT_SHA
-    #       -Dsonar.gitlab.ref_name=$CI_COMMIT_REF_NAME
-    #       -Dsonar.branch.name=$CI_COMMIT_REF_NAME'
+  except:
+    - develop
+    - master
+    - tags
 
 # Génération des rapports (en fonction des plugins activés dans la section <reporting> du pom.xml)
 reports:
@@ -95,7 +103,7 @@ reports:
   script:
     - mvn $MAVEN_CLI_OPTS site
     # Permet à GitlabCI de connaitre la couverture de code.
-    - cat docs/site/jacoco/index.html
+    - cat docs/site/jacoco/index.html || echo "Aucun test"
   artifacts:
     expire_in: 1 hour
     paths:
