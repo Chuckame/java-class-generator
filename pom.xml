@@ -5,7 +5,7 @@
 
   <groupId>org.michocko</groupId>
   <artifactId>java-class-generator</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.1</version>
   <packaging>jar</packaging>
   <name>Java class generator</name>
   <description>Cette bibliothèque permet de générer le code Java de classes Java.</description>
@@ -19,13 +19,12 @@
     <nexus.repositories>http://nexus.dev.gaio.local:8081/nexus/content/repositories</nexus.repositories>
     <project.release.date>${maven.build.timestamp}</project.release.date>
     <maven.build.timestamp.format>dd/MM/yyy</maven.build.timestamp.format>
-    <git.clonelink>git@gitlab.dev.gaio.local:michocko/java-class-generator.git</git.clonelink>
   </properties>
 
   <scm>
     <url>https://gitlab.dev.gaio.local/michocko/java-class-generator</url>
     <connection>scm:git:git@gitlab.dev.gaio.local:michocko/java-class-generator.git</connection>
-    <tag>HEAD</tag>
+    <tag>0.0.1</tag>
   </scm>
   <organization>
     <name>ESIOC 62.430</name>
@@ -49,9 +48,16 @@
       <version>1.7.25</version>
     </dependency>
     <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.12</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-log4j12</artifactId>
       <version>1.7.25</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

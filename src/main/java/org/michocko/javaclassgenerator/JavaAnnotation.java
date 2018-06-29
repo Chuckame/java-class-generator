@@ -5,11 +5,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Singular;
 import lombok.val;
 
 /**
@@ -24,32 +22,30 @@ import lombok.val;
  * @author michocko
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class JavaAnnotation {
-    private String name;
 
-    @Singular
     private final Map<String, String> values = new LinkedHashMap<>();
+
+    private String name;
 
     /**
      * Ajoute une valeur à l'annotation.<br>
-     * Si le nom de la valeur est <code>null</code>, le code généré sera :
+     * Si le nom de la valeur est vide, le code généré sera :
      * 
      * <pre>
      * &#64;Annotation(valeur)
      * </pre>
      * 
-     * Sinon, si le nom de la valeur n'est pas <code>null</code> :
+     * Sinon, si le nom de la valeur n'est pas vide :
      * 
      * <pre>
      * &#64;Annotation(nomDeLaValeur = valeur)
      * </pre>
      * 
-     * 
      * @param name
-     *            le nom de la valeur.
+     *            le nom de la valeur (non-null)
      * @param value
      *            la valeur (non-null)
      * @return l'instance actuelle de {@link JavaAnnotation}

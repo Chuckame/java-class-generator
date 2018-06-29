@@ -4,11 +4,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.Singular;
 import lombok.val;
 
 /**
@@ -25,15 +23,15 @@ import lombok.val;
  * @author michocko
  */
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = { "name" })
 public class JavaField {
+
+    private final Set<JavaAnnotation> annotations = new LinkedHashSet<>();
+
     private String type;
     private String name;
-    @Singular
-    private final Set<JavaAnnotation> annotations = new LinkedHashSet<>();
 
     /**
      * Ajoute une annotation sur le champ.<br>
