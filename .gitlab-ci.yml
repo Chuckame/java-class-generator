@@ -26,7 +26,7 @@ stages:
 
 # Vérifie si la version N'EST PAS en snapshot (sur master & tags)
 # Donc on arrête la pipeline, une version snapshot n'a rien à faire sur ces branches
-no-snapshot-required:
+no-snapshot:
   stage: build
   only:
     - tags
@@ -37,7 +37,7 @@ no-snapshot-required:
 
 # Vérifie si la version est en snapshot sur toutes les branches sauf master & tags
 # Donc on arrête la pipeline, une version release n'a rien à faire sur ces autres branches
-snapshot-required:
+require-snapshot:
   stage: build
   except:
     - tags
@@ -74,18 +74,18 @@ sonar-long-lived:
   dependencies:
     - tests
   script:
-    - 'mvn $MAVEN_CLI_OPTS sonar:sonar
+    - 'mvn $MAVEN_CLI_OPTS sonar:sonar 
             -Dsonar.branch.name=$CI_COMMIT_REF_NAME'
   only:
     - develop
     - master
-    
+
 sonar-short-lived:
   stage: report
   dependencies:
     - tests
   script:
-    - 'mvn $MAVEN_CLI_OPTS sonar:sonar
+    - 'mvn $MAVEN_CLI_OPTS sonar:sonar 
             -Dsonar.branch.name=$CI_COMMIT_REF_NAME
             -Dsonar.branch.target=develop'
   except:
@@ -110,7 +110,7 @@ reports:
       - docs/
 
 # Création du jar obfusqué
-packaging:
+jar:
   stage: package
   dependencies:
     - tests
@@ -125,7 +125,7 @@ packaging:
       - target/
 
 # Déploie les artifacts (sources, javadoc et jar) sur le nexus
-deploy:nexus:
+nexus:
   stage: deploy
   only:
     # Pour les snapshots
@@ -133,9 +133,10 @@ deploy:nexus:
     # Pour les releases
     - tags
   dependencies:
-    - packaging
+    - jar
   script:
-    - mvn $MAVEN_CLI_OPTS deploy -Dmaven.test.skip=true
+    # 'maven.javadoc.failOnError=false' pour ne pas planter le déploiement même si la javadoc contient des erreurs.
+    - 'mvn $MAVEN_CLI_OPTS javadoc:jar source:jar deploy -Dmaven.javadoc.failOnError=false -Dmaven.test.skip=true'
   # Pas de génération d'artifacts ici, car déjà envoyés dans le nexus
 
 # Met à disposition les rapports générés dans 'Pages' de GitLab.
