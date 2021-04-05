@@ -46,9 +46,10 @@ public class JavaClass {
     private String extendedClass;
 
     /**
-     * Ajoute le modifier "public" et ajoute les annotations &#64;Data, &#64;NoArgsConstructor et &#64;AllArgsConstructor de lombok, et leurs
-     * imports correspondants pour faire de cette cette classe un "Java Bean" (un objet ne contenant pas de méthodes, juste des
-     * getters/setters).
+     * Ajoute le modifier "public" et ajoute les annotations &#64;Data,
+     * &#64;NoArgsConstructor et &#64;AllArgsConstructor de lombok, et leurs imports
+     * correspondants pour faire de cette cette classe un "Java Bean" (un objet ne
+     * contenant pas de méthodes, juste des getters/setters).
      * 
      * @return l'instance actuelle de {@link JavaClass}
      */
@@ -128,11 +129,9 @@ public class JavaClass {
         }
         writer.println(" {");
         if (!this.fields.isEmpty()) {
-            writer.println();
             for (JavaField field : this.fields) {
                 writer.print(INDENTATION);
                 writer.println(field);
-                writer.println();
             }
         }
         writer.println('}');
@@ -143,7 +142,7 @@ public class JavaClass {
     }
 
     @RequiredArgsConstructor
-    enum ModifierEnum {
+    public enum ModifierEnum {
         PUBLIC("public"),
         ABSTRACT("abstract"),
         FINAL("final");
